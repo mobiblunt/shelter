@@ -21,7 +21,7 @@
 
 		<div class="well lead">User Registration Form</div>
 	 	<form:form method="POST" action="updateuser"  class="form-horizontal">
-			<form:input type="hidden" path="id" id="id"/>
+			
 			
 			<div class="row">
 				<div class="form-group col-md-12">

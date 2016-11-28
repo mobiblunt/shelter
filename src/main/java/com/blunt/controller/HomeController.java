@@ -54,15 +54,18 @@ return "index";
     }
     
     @RequestMapping(value = "/updateuser", method = RequestMethod.POST)
-    public String updateUser(@ModelAttribute("userForm") @Valid User user,BindingResult result, ModelMap model) {
+    public String updateUser(@ModelAttribute("command") @Valid User user,BindingResult result, ModelMap model) {
          model.addAttribute("user",user);
           if(result.hasErrors()){
               return "registration";
           }
-          this.userService.insertUser(user);
+          else{
+              this.userService.insertUser(user);
           model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " registered successfully");
-    //model.addAttribute("employeesList", employeeService.listEmployee());
+    
           return "registrationsuccess";
+          }
+          
     }
 //    @RequestMapping(value = "/delete/{empId}", method = RequestMethod.GET)
 //    public String deleteEmployee(@PathVariable("empId") Integer empId,ModelMap model) {
