@@ -49,7 +49,7 @@
                         <a href="<c:url value='/newuser' />">Join</a>
                     </li>
                     <li>
-                        <a data-toggle="modal" data-target="#myModal" href="#">Login</a>
+                        <a href="<c:url value='/login'/>"> Login</a>
                     </li>
                 </ul>
             </div>

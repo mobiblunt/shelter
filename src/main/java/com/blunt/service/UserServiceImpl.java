@@ -9,18 +9,25 @@ import java.util.List;
 import com.blunt.dao.UserDao;
 import com.blunt.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 @Autowired
 private UserDao userDao;
+
+
+@Autowired
+private PasswordEncoder passwordEncoder;
+
 @Override
 public List<User> listUser() {
 return this.userDao.listUser();
 }
 
 public void insertUser(User user) {
-		this.userDao.insertUser(user);
+    user.setPassword(passwordEncoder.encode(user.getPassword()));
+    this.userDao.insertUser(user);
 	}
 
 public void deleteEmployee(Integer userId) {
