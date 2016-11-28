@@ -20,14 +20,14 @@
 		
 
 		<div class="well lead">User Registration Form</div>
-	 	<form:form method="POST" action="updateuser"  class="form-horizontal">
+                <form:form method="POST" action="updateuser"  class="form-horizontal" id="userForm">
 			
 			
 			<div class="row">
 				<div class="form-group col-md-12">
 					<label class="col-md-3 control-lable" for="firstName">First Name</label>
 					<div class="col-md-7">
-						<form:input type="text" path="firstName" id="firstName" class="form-control input-sm"/>
+						<form:input type="text" path="firstName" name="firstName" id="firstName" class="form-control input-sm"/>
 						<div class="has-error">
 							<form:errors path="firstName" class="help-inline"/>
 						</div>
@@ -39,7 +39,7 @@
 				<div class="form-group col-md-12">
 					<label class="col-md-3 control-lable" for="lastName">Last Name</label>
 					<div class="col-md-7">
-						<form:input type="text" path="lastName" id="lastName" class="form-control input-sm" />
+						<form:input type="text" path="lastName" name="lastName" id="lastName" class="form-control input-sm" />
 						<div class="has-error">
 							<form:errors path="lastName" class="help-inline"/>
 						</div>
@@ -52,7 +52,7 @@
 				<div class="form-group col-md-12">
 					<label class="col-md-3 control-lable" for="gender">Gender</label>
 					<div class="col-md-7">
-						<form:input type="text" path="gender" id="gender" class="form-control input-sm" />
+						<form:input type="text" path="gender" name="gender" id="gender" class="form-control input-sm" />
 						<div class="has-error">
 							<form:errors path="gender" class="help-inline"/>
 						</div>
@@ -64,7 +64,7 @@
 				<div class="form-group col-md-12">
 					<label class="col-md-3 control-lable" for="dateOfBirth">Date Of Birth</label>
 					<div class="col-md-7">
-						<form:input type="text" path="dateOfBirth" id="dateOfBirth" class="form-control input-sm dateOfBirth" />
+						<form:input type="text" path="dateOfBirth" name="dateOfBirth" id="dateOfBirth" class="form-control input-sm dateOfBirth" />
 						<div class="has-error">
 							<form:errors path="dateOfBirth" class="help-inline"/>
 						</div>
@@ -78,7 +78,7 @@
 				<div class="form-group col-md-12">
 					<label class="col-md-3 control-lable" for="password">Password</label>
 					<div class="col-md-7">
-						<form:input type="password" path="password" id="password" class="form-control input-sm" />
+						<form:input type="password" name="password" path="password" id="password" class="form-control input-sm" />
 						<div class="has-error">
 							<form:errors path="password" class="help-inline"/>
 						</div>
@@ -90,7 +90,7 @@
 				<div class="form-group col-md-12">
 					<label class="col-md-3 control-lable" for="confPassword">Confirm Password</label>
 					<div class="col-md-7">
-						<form:input type="password" path="confPassword" id="confPassword" class="form-control input-sm" />
+						<form:input type="password" name="confPassword" path="confPassword" id="confPassword" class="form-control input-sm" />
 						<div class="has-error">
 							<form:errors path="confPassword" class="help-inline"/>
 						</div>
@@ -102,7 +102,7 @@
 				<div class="form-group col-md-12">
 					<label class="col-md-3 control-lable" for="email">Email</label>
 					<div class="col-md-7">
-						<form:input type="text" path="email" id="email" class="form-control input-sm" />
+						<form:input type="text" path="email" name="email" id="email" class="form-control input-sm" />
 						<div class="has-error">
 							<form:errors path="email" class="help-inline"/>
 						</div>
@@ -114,7 +114,7 @@
 				<div class="form-group col-md-12">
 					<label class="col-md-3 control-lable" for="mobilePhone">Mobile Phone</label>
 					<div class="col-md-7">
-						<form:input type="text" path="mobilePhone" id="mobilePhone" class="form-control input-sm" />
+						<form:input type="text" path="mobilePhone" name="mobilePhone" id="mobilePhone" class="form-control input-sm" />
 						<div class="has-error">
 							<form:errors path="mobilePhone" class="help-inline"/>
 						</div>
@@ -126,7 +126,7 @@
 				<div class="form-group col-md-12">
 					<label class="col-md-3 control-lable" for="city">City</label>
 					<div class="col-md-7">
-						<form:input type="text" path="city" id="city" class="form-control input-sm" />
+						<form:input type="text" path="city" name="city" id="city" class="form-control input-sm" />
 						<div class="has-error">
 							<form:errors path="city" class="help-inline"/>
 						</div>
@@ -138,7 +138,7 @@
 				<div class="form-group col-md-12">
 					<label class="col-md-3 control-lable" for="state">State</label>
 					<div class="col-md-7">
-						<form:input type="text" path="state" id="state" class="form-control input-sm" />
+						<form:input type="text" path="state" name="state" id="state" class="form-control input-sm" />
 						<div class="has-error">
 							<form:errors path="state" class="help-inline"/>
 						</div>
@@ -150,7 +150,7 @@
 				<div class="form-group col-md-12">
 					<label class="col-md-3 control-lable" for="country">Country</label>
 					<div class="col-md-7">
-						<form:input type="text" path="country" id="country" class="form-control input-sm" />
+						<form:input type="text" path="country" name="country" id="country" class="form-control input-sm" />
 						<div class="has-error">
 							<form:errors path="country" class="help-inline"/>
 						</div>
@@ -185,6 +185,8 @@
 	</div>
                 <script src="<c:url value='resources/vendor/jquery/jquery.js' />" type="text/javascript"></script>
                 <script src="<c:url value='resources/vendor/jquery-ui/jquery-ui.min.js' />" type="text/javascript"></script>
+                <script src="<c:url value='resources/vendor/jquery/jquery.validate.min.js' />" type="text/javascript"></script>
+                <script src="<c:url value='resources/js/registration.js' />" type="text/javascript"></script>
                 <script type="text/javascript">
                     $(document).ready(function() {
                     $(".dateOfBirth").datepicker();
