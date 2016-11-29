@@ -14,15 +14,38 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import com.blunt.model.User;
+import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-@Repository
-public class UserDaoImpl implements UserDao {
+@Repository("userDao")
+public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 @Autowired
 private SessionFactory sessionFactory;
+
+public User findById(int id) {
+		User user = getByKey(id);
+		if(user!=null){
+			Hibernate.initialize(user.getUserProfiles());
+		}
+		return user;
+	}
+
+
+public User findByEmail(String email) {
+		logger.info("EMAIL : {}", email);
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("email", email));
+		User user = (User)crit.uniqueResult();
+		if(user!=null){
+			Hibernate.initialize(user.getUserProfiles());
+		}
+		return user;
+	}
 
 @SuppressWarnings("unchecked")
 @Override

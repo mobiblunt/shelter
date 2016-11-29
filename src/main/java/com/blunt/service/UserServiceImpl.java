@@ -11,7 +11,10 @@ import com.blunt.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-@Service
+import org.springframework.transaction.annotation.Transactional;
+
+@Service("userService")
+@Transactional
 public class UserServiceImpl implements UserService {
 @Autowired
 private UserDao userDao;
@@ -19,6 +22,16 @@ private UserDao userDao;
 
 @Autowired
 private PasswordEncoder passwordEncoder;
+
+public User findById(int id) {
+		return userDao.findById(id);
+	}
+
+	public User findByEmail(String sso) {
+		User user =userDao.findBySSO(sso);
+		return user;
+	}
+
 
 @Override
 public List<User> listUser() {

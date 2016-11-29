@@ -11,6 +11,10 @@ import com.blunt.model.User;
 
 public interface UserDao {
     
+    User findById(int id);
+	
+    User findByEmail(String email);
+    
     public List<User> listUser();
     
     public void insertUser(User user);

@@ -11,6 +11,10 @@ import com.blunt.model.User;
 
 public interface UserService {
     
+    User findById(int id);
+	
+    User findByEmail(String email);
+    
     public void insertUser(User User);
     
     public void deleteEmployee(Integer employeeId);
