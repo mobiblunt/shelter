@@ -24,3 +24,12 @@ CREATE TABLE `user_role` (
     FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO role(name)
+VALUES ('VERIFICATION_MANAGER');
+
+INSERT INTO USER(first_name, last_name, password, gender, date_of_birth, email, mobile_phone, city,state, country)
+VALUES ('Chima', 'Ejiofor','$2a$10$4eqIF5s/ewJwHK1p8lqlFOEm2QIA0S8g6./Lok.pQxqcxaBZYChRm', 'male','1989-03-05','chimobi.ejiofor@gmail.com', '07067208421', 'Ketu','Lagos','Nigeria');
+
+INSERT INTO USER_ROLE (user_id, role_id)
+  SELECT user.id, role.id FROM user user, role role
+  where user.email='chimobi.ejiofor@gmail.com' and role.name='ADMIN';
