@@ -5,9 +5,13 @@
  */
 package com.blunt.service;
 
+import com.blunt.config.HibernateConfiguration;
 import java.util.List;
 import com.blunt.dao.UserDao;
 import com.blunt.model.User;
+import java.math.BigInteger;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,7 +22,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
 @Autowired
 private UserDao userDao;
-
+public  Long UserID;
+Session session,currentSession;
+HibernateConfiguration config;
+ private SessionFactory sessionFactory;
 
 @Autowired
 private PasswordEncoder passwordEncoder;
@@ -27,8 +34,8 @@ public User findById(int id) {
 		return userDao.findById(id);
 	}
 
-	public User findByEmail(String sso) {
-		User user =userDao.findBySSO(sso);
+	public User findByEmail(String email) {
+		User user =userDao.findByEmail(email);
 		return user;
 	}
 
@@ -40,7 +47,22 @@ return this.userDao.listUser();
 
 public void insertUser(User user) {
     user.setPassword(passwordEncoder.encode(user.getPassword()));
+    user.setEnabled(false);
     this.userDao.insertUser(user);
+   
+    	
+		//Current Session - no need to close
+		currentSession = sessionFactory.getCurrentSession();
+		
+		//open new session
+		session = sessionFactory.openSession();
+		//perform db operations
+		
+    UserID = ((BigInteger) session.createSQLQuery("SELECT LAST_INSERT_ID()").uniqueResult()).longValue();
+   //Insert the ID 
+    
+    this.userDao.insertUserToRole(UserID, 2);
+    
 	}
 
 public void deleteEmployee(Integer userId) {

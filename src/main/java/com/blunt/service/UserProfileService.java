@@ -2,15 +2,15 @@ package com.blunt.service;
 
 import java.util.List;
 
-import com.blunt.model.UserProfile;
+import com.blunt.model.Roles;
 
 
 public interface UserProfileService {
 
-	UserProfile findById(int id);
+	Roles findById(int id);
 
-	UserProfile findByType(String type);
+	Roles findByType(String type);
 	
-	List<UserProfile> findAll();
+	List<Roles> findAll();
 	
 }

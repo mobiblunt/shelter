@@ -23,30 +23,30 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-    http
-      .authorizeRequests()
-      .antMatchers("/").hasAnyRole("USER", "ADMIN")
-      .antMatchers("/login").hasRole("ADMIN")
-      .and()
-      .formLogin().loginPage("/login.jsp");
-     }
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//    http
+//      .authorizeRequests()
+//      .antMatchers("/").hasAnyRole("USER", "ADMIN")
+//      .antMatchers("/login").hasRole("ADMIN")
+//      .and()
+//      .formLogin().loginPage("/login.jsp");
+//     }
 
     
-    @Autowired
-	public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("admin")
-                        .password("password")
-                        .roles("ADMIN","USER")
-                        .and()
-                    .withUser("user")
-                        .password("password")
-                        .roles("USER");
-                
-                        
-		
-	}
+//    @Autowired
+//	public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
+//		auth.inMemoryAuthentication().withUser("admin")
+//                        .password("password")
+//                        .roles("ADMIN","USER")
+//                        .and()
+//                    .withUser("user")
+//                        .password("password")
+//                        .roles("USER");
+//                
+//                        
+//		
+//	}
         @Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

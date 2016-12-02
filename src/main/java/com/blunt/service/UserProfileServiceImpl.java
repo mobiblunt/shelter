@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.blunt.dao.UserProfileDao;
-import com.blunt.model.UserProfile;
+import com.blunt.model.Roles;
+import com.blunt.dao.UserRoleDao;
 
 
 @Service("userProfileService")
@@ -15,17 +15,17 @@ import com.blunt.model.UserProfile;
 public class UserProfileServiceImpl implements UserProfileService{
 	
 	@Autowired
-	UserProfileDao dao;
+	UserRoleDao dao;
 	
-	public UserProfile findById(int id) {
+	public Roles findById(int id) {
 		return dao.findById(id);
 	}
 
-	public UserProfile findByType(String type){
+	public Roles findByType(String type){
 		return dao.findByType(type);
 	}
 
-	public List<UserProfile> findAll() {
+	public List<Roles> findAll() {
 		return dao.findAll();
 	}
 }

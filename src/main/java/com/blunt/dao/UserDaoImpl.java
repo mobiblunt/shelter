@@ -9,6 +9,7 @@ package com.blunt.dao;
  *
  * @author Spunk
  */
+import com.blunt.model.Roles;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -25,12 +26,12 @@ import org.springframework.stereotype.Repository;
 public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 @Autowired
-private SessionFactory sessionFactory;
+private SessionFactory sessionFactory;Session session;
 
 public User findById(int id) {
 		User user = getByKey(id);
 		if(user!=null){
-			Hibernate.initialize(user.getUserProfiles());
+			Hibernate.initialize(user.getRoles());
 		}
 		return user;
 	}
@@ -42,7 +43,7 @@ public User findByEmail(String email) {
 		crit.add(Restrictions.eq("email", email));
 		User user = (User)crit.uniqueResult();
 		if(user!=null){
-			Hibernate.initialize(user.getUserProfiles());
+			Hibernate.initialize(user.getRoles());
 		}
 		return user;
 	}
@@ -60,7 +61,7 @@ return empList;
 
 @Override
 public void insertUser(User user) {
-		Session session = sessionFactory.openSession();
+		session = sessionFactory.openSession();
 		session.beginTransaction();
 		session.save(user);
 		session.getTransaction().commit();
@@ -69,12 +70,23 @@ public void insertUser(User user) {
 @Override
 public void deleteUser(Integer userId) {
 		System.out.println("hql Using Delete");
-		Session session = sessionFactory.openSession();
+		session = sessionFactory.openSession();
 		String hql = "DELETE from User E WHERE E.id = :user_id";
 		Query query = session.createQuery(hql);
 		query.setParameter("user_id", userId);
 		int result = query.executeUpdate();
 		System.out.println("Row affected: " + result);
 	}
+
+    @Override
+    public void insertUserToRole(Long id, int roleid) {
+       		String hql = "INSERT TO users_in_role Values(:id,:role)";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+                query.setParameter("role", roleid);
+		int result = query.executeUpdate();
+		System.out.println("Row affected: " + result);
+	
+    }
 
 }

@@ -19,6 +19,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
@@ -81,6 +83,18 @@ public class User implements Serializable{
 	@NotEmpty
 	@Column(name="COUNTRY", nullable=false)
 	private String country;
+        
+        private boolean enabled;
+        
+        
+        
+      @OneToMany(fetch = FetchType.EAGER)  
+    @JoinTable(name = "users_in_role",  
+        joinColumns        = {@JoinColumn(name = "userid", referencedColumnName = "id")},  
+        inverseJoinColumns = {@JoinColumn(name = "roleid", referencedColumnName = "role_id")}  
+    )  
+    private Set<Roles> roles;
+     
 
 	
 	public Integer getId() {
@@ -208,11 +222,16 @@ public class User implements Serializable{
 	 * DO-NOT-INCLUDE passwords in toString function.
 	 * It is done here just for convenience purpose.
 	 */
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName+ ", lastName=" + lastName
-				+ ", email=" + email + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "User [id=" + id + ", firstName=" + firstName+ ", lastName=" + lastName
+//				+ ", email=" + email + "]";
+//	}
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender + ", dateOfBirth=" + dateOfBirth + ", email=" + email + ", mobilePhone=" + mobilePhone + ", city=" + city + ", state=" + state + ", country=" + country + ", userProfile=" + getRoles() + '}';
+    }
 
     /**
      * @return the confPassword
@@ -226,6 +245,51 @@ public class User implements Serializable{
      */
     public void setConfPassword(String confPassword) {
         this.confPassword = confPassword;
+    }
+
+  
+    /**
+     * @return the enabled
+     */
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    /**
+     * @param enabled the enabled to set
+     */
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+//    public User(String password, String confPassword, String firstName, String lastName, String gender, Date dateOfBirth, String email, String mobilePhone, String city, String state, String country, boolean enabled, Set<Roles> roles) {
+//        this.password = password;
+//        this.confPassword = confPassword;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.gender = gender;
+//        this.dateOfBirth = dateOfBirth;
+//        this.email = email;
+//        this.mobilePhone = mobilePhone;
+//        this.city = city;
+//        this.state = state;
+//        this.country = country;
+//        this.enabled = enabled;
+//        this.roles = roles;
+//    }
+//    
+    /**
+     * @return the roles
+     */
+    public Set<Roles> getRoles() {
+        return roles;
+    }
+
+    /**
+     * @param roles the roles to set
+     */
+    public void setRoles(Set<Roles> roles) {
+        this.roles = roles;
     }
 
 
