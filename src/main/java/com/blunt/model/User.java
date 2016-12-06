@@ -87,13 +87,15 @@ public class User implements Serializable{
         private boolean enabled;
         
         
-        
-      @OneToMany(fetch = FetchType.EAGER)  
-    @JoinTable(name = "users_in_role",  
-        joinColumns        = {@JoinColumn(name = "userid", referencedColumnName = "id")},  
-        inverseJoinColumns = {@JoinColumn(name = "roleid", referencedColumnName = "role_id")}  
-    )  
-    private Set<Roles> roles;
+            @NotEmpty
+            @ManyToMany(fetch = FetchType.EAGER)  
+            @JoinTable(name = "USER_ROLE", 
+            joinColumns = { @JoinColumn(name = "USER_ID") },
+            inverseJoinColumns = { @JoinColumn(name = "ROLE_ID") })
+            private Set<Roles> roles = new HashSet<Roles>();
+      
+      
+	
      
 
 	

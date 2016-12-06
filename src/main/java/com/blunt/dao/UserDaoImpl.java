@@ -22,22 +22,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-@Repository("userDao")
-public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
-private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
-@Autowired
-private SessionFactory sessionFactory;Session session;
 
-public User findById(int id) {
-		User user = getByKey(id);
-		if(user!=null){
-			Hibernate.initialize(user.getRoles());
+
+@Repository("userDao")
+
+public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
+    
+    private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
+
+    @Autowired
+    private SessionFactory sessionFactory;Session session;
+
+    public User findById(int id) {
+	User user = getByKey(id);
+	if(user!=null){
+	Hibernate.initialize(user.getRoles());
 		}
 		return user;
 	}
 
 
-public User findByEmail(String email) {
+    public User findByEmail(String email) {
 		logger.info("EMAIL : {}", email);
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("email", email));
@@ -48,16 +53,16 @@ public User findByEmail(String email) {
 		return user;
 	}
 
-@SuppressWarnings("unchecked")
-@Override
-public List<User> listUser() {
-Session session = sessionFactory.openSession();
-String hql = "FROM User";
-Query query = session.createQuery(hql);
-List<User> empList = query.list();
-logger.info("Person List::" + empList);
-return empList;
-}
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<User> listUser() {
+        Session session = sessionFactory.openSession();
+        String hql = "FROM User";
+        Query query = session.createQuery(hql);
+        List<User> empList = query.list();
+        logger.info("Person List::" + empList);
+        return empList;
+        }
 
 @Override
 public void insertUser(User user) {
@@ -78,15 +83,6 @@ public void deleteUser(Integer userId) {
 		System.out.println("Row affected: " + result);
 	}
 
-    @Override
-    public void insertUserToRole(Long id, int roleid) {
-       		String hql = "INSERT TO users_in_role Values(:id,:role)";
-		Query query = session.createQuery(hql);
-		query.setParameter("id", id);
-                query.setParameter("role", roleid);
-		int result = query.executeUpdate();
-		System.out.println("Row affected: " + result);
-	
-    }
+    
 
 }

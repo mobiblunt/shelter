@@ -48,21 +48,9 @@ return this.userDao.listUser();
 public void insertUser(User user) {
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     user.setEnabled(false);
+    //user.setRoles(roles);
     this.userDao.insertUser(user);
-   
-    	
-		//Current Session - no need to close
-		currentSession = sessionFactory.getCurrentSession();
-		
-		//open new session
-		session = sessionFactory.openSession();
-		//perform db operations
-		
-    UserID = ((BigInteger) session.createSQLQuery("SELECT LAST_INSERT_ID()").uniqueResult()).longValue();
-   //Insert the ID 
-    
-    this.userDao.insertUserToRole(UserID, 2);
-    
+       
 	}
 
 public void deleteEmployee(Integer userId) {

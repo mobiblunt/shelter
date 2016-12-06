@@ -11,7 +11,7 @@ import com.blunt.model.Roles;
 
 
 
-@Repository("userProfileDao")
+@Repository("userRoleDao")
 public class UserRoleDaoImpl extends AbstractDao<Integer, Roles>implements UserRoleDao{
 
 	public Roles findById(int id) {

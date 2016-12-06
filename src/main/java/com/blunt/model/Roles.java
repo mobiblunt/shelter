@@ -21,19 +21,12 @@ public class Roles implements Serializable{
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;	
 
-	@Column(name="NAME", length=15, unique=true, nullable=false)
+	@Column(name="name", length=15, unique=true, nullable=false)
 	private String type = UserRoleType.USER.getUserProfileType();
         
        
         
-    //@OneToMany(cascade = CascadeType.ALL)  
-    @OneToMany(fetch = FetchType.EAGER)  
-    @JoinTable(name = "users_in_role",   
-        joinColumns        = {@JoinColumn(name = "roleid", referencedColumnName = "role_id")},  
-        inverseJoinColumns = {@JoinColumn(name = "userid", referencedColumnName = "id")}  
-    )  
-    private Set<User> userRoles;
-
+    
     
 	
         
@@ -94,16 +87,12 @@ public class Roles implements Serializable{
     /**
      * @return the user
      */
-    public Set<User> getUser() {
-        return userRoles;
-    }
+    
 
     /**
      * @param user the user to set
      */
-    public void setUser(Set<User> user) {
-        this.userRoles = user;
-    }
+    
 
 
 
