@@ -46,7 +46,7 @@ public class HomeController {
     private UserService userService;
     
         @Autowired
-	UserProfileService userProfileService;
+        UserProfileService userProfileService;
 	
 	@Autowired
 	MessageSource messageSource;
@@ -78,6 +78,15 @@ public class HomeController {
         return new ModelAndView("registration", "command",new User());
         
     }
+//    @RequestMapping(value = { "/newuser" }, method = RequestMethod.GET)
+//	public String newUser(ModelMap model) {
+//		User user = new User();
+//		model.addAttribute("user", user);
+//		model.addAttribute("edit", false);
+//		//model.addAttribute("loggedinuser", getPrincipal());
+//		return "registration";
+//	}
+    
     
     @RequestMapping(value = "/userprofile", method = RequestMethod.GET)
 	public String userProfile(ModelMap model, User user) {
@@ -115,6 +124,15 @@ public class HomeController {
 		return userName;
 	}
     
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String loginPage() {
+		if (isCurrentAuthenticationAnonymous()) {
+			return "login";
+	    } else {
+	    	return "redirect:/Blunt";  
+	    }
+	}
+    
     @RequestMapping(value="/logout", method = RequestMethod.GET)
 	public String logoutPage (HttpServletRequest request, HttpServletResponse response){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -126,10 +144,10 @@ public class HomeController {
 		return "redirect:/login?logout";
 	}
     
-    @ModelAttribute("roles")
-	public List<Roles> initializeProfiles() {
-		return userProfileService.findAll();
-	}
+//        @ModelAttribute("roles")
+//	public List<Roles> initializeProfiles() {
+//		return userProfileService.findAll();
+//	}
     
     private boolean isCurrentAuthenticationAnonymous() {
 	    final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

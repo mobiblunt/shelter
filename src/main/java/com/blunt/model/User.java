@@ -8,6 +8,7 @@ package com.blunt.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -84,6 +85,7 @@ public class User implements Serializable{
 	@Column(name="COUNTRY", nullable=false)
 	private String country;
         
+        @Column(name="IS_ENABLED")
         private boolean enabled;
         
         
@@ -92,7 +94,7 @@ public class User implements Serializable{
             @JoinTable(name = "USER_ROLE", 
             joinColumns = { @JoinColumn(name = "USER_ID") },
             inverseJoinColumns = { @JoinColumn(name = "ROLE_ID") })
-            private Set<Roles> roles = new HashSet<Roles>();
+            private List<Roles> roles; 
       
       
 	
@@ -283,14 +285,14 @@ public class User implements Serializable{
     /**
      * @return the roles
      */
-    public Set<Roles> getRoles() {
+    public List<Roles> getRoles() {
         return roles;
     }
 
     /**
      * @param roles the roles to set
      */
-    public void setRoles(Set<Roles> roles) {
+    public void setRoles(List<Roles> roles) {
         this.roles = roles;
     }
 

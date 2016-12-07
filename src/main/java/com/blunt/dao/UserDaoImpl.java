@@ -66,10 +66,11 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
 @Override
 public void insertUser(User user) {
-		session = sessionFactory.openSession();
-		session.beginTransaction();
-		session.save(user);
-		session.getTransaction().commit();
+//		session = sessionFactory.openSession();
+//		session.beginTransaction();
+//		session.save(user);
+//		session.getTransaction().commit();
+                persist(user);
 	}
 
 @Override
